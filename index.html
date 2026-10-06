@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Are.na Archive</title>
+  <style>
+    /* 전체 배경과 폰트 설정 */
+    body {
+      font-family: 'Sandoll Claire Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 40px 20px;
+      margin: 0;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+
+    /* 바둑판(그리드) 레이아웃 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 개별 블록 디자인 */
+    .block {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .block:hover {
+      transform: translateY(-4px);
+    }
+
+    .block img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .block p, .block a {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      word-break: keep-all;
+    }
+
+    .block a {
+      color: #0055ff;
+      text-decoration: none;
+    }
+
+    .block a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My Are.na Archive</h1>
+  <div class="grid" id="arena-grid"></div>
+
+  <script>
+    // 요청하신 lee-yoonha 유저의 콘텐츠를 가져오는 API 주소
+    const API_URL = 'https://api.are.na/v2/users/lee-yoonha/contents?per=50';
+
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(data => {
+        const grid = document.getElementById('arena-grid');
+        
+        // 데이터를 하나씩 꺼내서 화면에 조립
+        data.contents.forEach(block => {
+          const div = document.createElement('div');
+          div.className = 'block';
+          
+          if (block.image) {
+            // 이미지 블록
+            div.innerHTML = `
+              <img src="${block.image.display.url}" alt="${block.title || 'Are.na Image'}">
+              <p>${block.title || ''}</p>
+            `;
+          } else if (block.content) {
+            // 텍스트 블록
+            div.innerHTML = `<p>${block.content}</p>`;
+          } else if (block.source) {
+            // 링크 블록
+            div.innerHTML = `<a href="${block.source.url}" target="_blank">${block.title || block.source.url}</a>`;
+          }
+          
+          grid.appendChild(div);
+        });
+      })
+      .catch(error => {
+        console.error('데이터를 불러오는 중 에러 발생:', error);
+        document.getElementById('arena-grid').innerHTML = '<p>데이터를 불러오지 못했습니다.</p>';
+      });
+  </script>
+
+</body>
+</html>
