@@ -72,8 +72,8 @@
   <div class="grid" id="arena-grid"></div>
 
   <script>
-    // 요청하신 lee-yoonha 유저의 콘텐츠를 가져오는 API 주소
-    const API_URL = 'https://api.are.na/v2/users/lee-yoonha/contents?per=50';
+    // ▼ 이 부분이 변경되었습니다! 특정 채널(test-e0mwna5ipls)을 가져오도록 주소를 수정했습니다.
+    const API_URL = 'https://api.are.na/v2/channels/test-e0mwna5ipls/contents?per=50';
 
     fetch(API_URL)
       .then(response => response.json())
@@ -104,7 +104,7 @@
       })
       .catch(error => {
         console.error('데이터를 불러오는 중 에러 발생:', error);
-        document.getElementById('arena-grid').innerHTML = '<p>데이터를 불러오지 못했습니다.</p>';
+        document.getElementById('arena-grid').innerHTML = '<p>데이터를 불러오지 못했습니다. Are.na 채널이 Public 상태인지 확인해주세요.</p>';
       });
   </script>
 
