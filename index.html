@@ -1,112 +1,51 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Are.na Archive</title>
-  <style>
-    /* 전체 배경과 폰트 설정 */
-    body {
-      font-family: 'Sandoll Claire Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      padding: 40px 20px;
-      margin: 0;
+{
+  "id" : 5596150 , 
+  "유형" : "채널" , 
+  "생성 시간" : "2026-08-20T05:18:46Z" , 
+  "업데이트 시간" : "2026-10-06T16:54:49Z" , 
+  "슬러그" : "_y9jwwkgayo" , 
+  "제목" : "💬" , 
+  "설명" : null , 
+  "상태" : "사용 가능" , 
+  "가시성" : "공개" , 
+  "메타데이터" : null , 
+  "소유자" : { 
+    "id" : 462908 , 
+    "유형" : "사용자" , 
+    "이름" : "이윤하" , 
+    "슬러그" : "이윤하" , 
+    "사용자 이름" : "이윤하" , 
+    "아바타" : null , 
+    이니셜 : "ly" 
+  } ,
+  "카운트" : { 
+    "블록" : 10 , 
+    "채널" : 0 , 
+    "내용" : 10 , 
+    "협력자" : 0 
+  } ,
+  "할 수 있다" : { 
+    "add_to" : false , 
+    "업데이트" : false , 
+    "파괴" : 거짓 , 
+    "협력자 관리" : false 
+  } ,
+  "협력자" : [ ] , 
+  "_링크" : { 
+    "self" : { 
+      "href" : "https://api.are.na/v3/channels/_y9jwwkgayo" 
+    } ,
+    "소유자" : { 
+      "href" : "https://api.are.na/v3/users/lee-yoonha" 
+    } ,
+    "내용물" : { 
+      "href" : "https://api.are.na/v3/channels/_y9jwwkgayo/contents" 
+    } ,
+    "연결" : { 
+      "href" : "https://api.are.na/v3/channels/_y9jwwkgayo/connections" 
+    } ,
+    "팔로워" : { 
+      "href" : "https://api.are.na/v3/channels/_y9jwwkgayo/followers" 
     }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-weight: 600;
-    }
-
-    /* 바둑판(그리드) 레이아웃 */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* 개별 블록 디자인 */
-    .block {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease;
-    }
-
-    .block:hover {
-      transform: translateY(-4px);
-    }
-
-    .block img {
-      width: 100%;
-      height: auto;
-      border-radius: 4px;
-      margin-bottom: 12px;
-    }
-
-    .block p, .block a {
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0;
-      word-break: keep-all;
-    }
-
-    .block a {
-      color: #0055ff;
-      text-decoration: none;
-    }
-
-    .block a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>My Are.na Archive</h1>
-  <div class="grid" id="arena-grid"></div>
-
-  <script>
-    // ▼ 이 부분이 변경되었습니다! 특정 채널(test-e0mwna5ipls)을 가져오도록 주소를 수정했습니다.
-    const API_URL = 'https://api.are.na/v2/channels/test-e0mwna5ipls/contents?per=50';
-
-    fetch(API_URL)
-      .then(response => response.json())
-      .then(data => {
-        const grid = document.getElementById('arena-grid');
-        
-        // 데이터를 하나씩 꺼내서 화면에 조립
-        data.contents.forEach(block => {
-          const div = document.createElement('div');
-          div.className = 'block';
-          
-          if (block.image) {
-            // 이미지 블록
-            div.innerHTML = `
-              <img src="${block.image.display.url}" alt="${block.title || 'Are.na Image'}">
-              <p>${block.title || ''}</p>
-            `;
-          } else if (block.content) {
-            // 텍스트 블록
-            div.innerHTML = `<p>${block.content}</p>`;
-          } else if (block.source) {
-            // 링크 블록
-            div.innerHTML = `<a href="${block.source.url}" target="_blank">${block.title || block.source.url}</a>`;
-          }
-          
-          grid.appendChild(div);
-        });
-      })
-      .catch(error => {
-        console.error('데이터를 불러오는 중 에러 발생:', error);
-        document.getElementById('arena-grid').innerHTML = '<p>데이터를 불러오지 못했습니다. Are.na 채널이 Public 상태인지 확인해주세요.</p>';
-      });
-  </script>
-
-</body>
-</html>
+  }
+}
