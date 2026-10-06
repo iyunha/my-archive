@@ -68,19 +68,23 @@
 </head>
 <body>
 
-  <!-- 채널 제목을 💬 로 바꿨습니다 -->
   <h1>💬 Archive</h1>
   <div class="grid" id="arena-grid"></div>
 
   <script>
-    // 알려주신 _y9jwwkgayo 채널 주소에, 보안 차단을 우회하는 corsproxy 주소를 앞에 붙였습니다.
-    const API_URL = 'https://corsproxy.io/?' + encodeURIComponent('https://api.are.na/v2/channels/_y9jwwkgayo/contents?per=50');
+    // 말썽을 부리던 우회 주소를 빼고, Are.na의 원본 주소로 직접 연결하도록 바꿨습니다!
+    const API_URL = 'https://api.are.na/v2/channels/_y9jwwkgayo/contents?per=50';
 
     fetch(API_URL)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('네트워크 응답이 정상이 아닙니다.');
+        }
+        return response.json();
+      })
       .then(data => {
         const grid = document.getElementById('arena-grid');
-        grid.innerHTML = ''; // 로딩 중 텍스트가 있다면 비워줍니다
+        grid.innerHTML = ''; 
         
         // 데이터를 하나씩 꺼내서 화면에 조립
         data.contents.forEach(block => {
@@ -105,7 +109,7 @@
         });
       })
       .catch(error => {
-        console.error('데이터를 불러오는 중 에러 발생:', error);
+        console.error('데이터 에러:', error);
         document.getElementById('arena-grid').innerHTML = '<p>데이터를 불러오지 못했습니다.</p>';
       });
   </script>
